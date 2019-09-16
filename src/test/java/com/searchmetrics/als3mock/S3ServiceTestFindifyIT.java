@@ -27,7 +27,6 @@ class S3ServiceTestFindifyIT {
     @Autowired
     private S3Service s3Service;
 
-
     @Test
     @DisplayName("returns a list of all the buckets")
     void getList() {
@@ -46,17 +45,14 @@ class S3ServiceTestFindifyIT {
 
         @Bean
         public S3Mock  s3MockApi() {
-            S3Mock api = new S3Mock.Builder()
-                    .withPort(8002)
-                    .withInMemoryBackend()
-                    .build();
+            S3Mock api = new S3Mock.Builder().build();
             api.start();
             return api;
         }
 
         @Bean
         public S3Client s3Client() throws URISyntaxException {
-            String mockUrl = "http://localhost:8002";
+            String mockUrl = "http://localhost:8001";
             return S3Client.builder()
                     .credentialsProvider(AnonymousCredentialsProvider.create())
                     .region(Region.EU_CENTRAL_1)
